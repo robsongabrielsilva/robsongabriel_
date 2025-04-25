@@ -11,19 +11,18 @@
       padding: 20px;
       max-width: 900px;
       margin: auto;
+      color: #000;
     }
     h1, h2 {
       text-align: center;
+      color: #000;
     }
     .section {
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       margin-bottom: 20px;
-      color: #fff;
-      background-size: cover;
-      background-position: center;
-    }
+      background-color: #fff;
     }
     ul {
       list-style: none;
@@ -101,6 +100,7 @@
       margin: 4px;
       border-radius: 8px;
       cursor: pointer;
+      color: #000;
     }
     .weekday.active {
       background: #4CAF50;
@@ -122,19 +122,19 @@
     <div class="weekday" onclick="changeDay('sabado')">Sáb</div>
   </div>
 
-  <div class="section manha-bg">
+  <div class="section">
     <h2>☀️ Manhã</h2>
     <ul id="manha"></ul>
     <button class="add-btn" onclick="addTask('manha')">+ Adicionar tarefa</button>
   </div>
 
-  <div class="section tarde-bg">
+  <div class="section">
     <h2>🌤 Tarde</h2>
     <ul id="tarde"></ul>
     <button class="add-btn" onclick="addTask('tarde')">+ Adicionar tarefa</button>
   </div>
 
-  <div class="section noite-bg">
+  <div class="section">
     <h2>🌙 Noite</h2>
     <ul id="noite"></ul>
     <button class="add-btn" onclick="addTask('noite')">+ Adicionar tarefa</button>
