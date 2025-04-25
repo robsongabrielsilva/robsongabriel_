@@ -27,13 +27,13 @@
       background-position: center;
     }
     .manha-bg {
-      background-image: url('https://i.imgur.com/lJ2lRRU.jpg');
+      background-image: url('https://i.imgur.com/lJ2lRRUl.jpg');
     }
     .tarde-bg {
-      background-image: url('https://i.imgur.com/RFxXyMQ.jpg');
+      background-image: url('https://i.imgur.com/RFxXyMQl.jpg');
     }
     .noite-bg {
-      background-image: url('https://i.imgur.com/X0A5X8L.jpg');
+      background-image: url('https://i.imgur.com/X0A5X8Ll.jpg');
     }
     ul {
       list-style: none;
