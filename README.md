@@ -1,11 +1,10 @@
-# robsongabriel_<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checklist Semanal</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="theme-color" content="#4CAF50">
   <style>
     body {
@@ -19,11 +18,22 @@
       text-align: center;
     }
     .section {
-      background: white;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       margin-bottom: 20px;
+      color: #fff;
+      background-size: cover;
+      background-position: center;
+    }
+    .manha-bg {
+      background-image: url('https://i.imgur.com/lJ2lRRU.jpg');
+    }
+    .tarde-bg {
+      background-image: url('https://i.imgur.com/RFxXyMQ.jpg');
+    }
+    .noite-bg {
+      background-image: url('https://i.imgur.com/X0A5X8L.jpg');
     }
     ul {
       list-style: none;
@@ -34,13 +44,11 @@
       margin-bottom: 10px;
       display: flex;
       align-items: center;
-      background: #fff;
+      background: rgba(255,255,255,0.9);
       padding: 8px;
       border-radius: 6px;
       cursor: grab;
-    }
-    li.dragging {
-      opacity: 0.5;
+      color: #000;
     }
     input[type="checkbox"] {
       margin-right: 10px;
@@ -65,7 +73,7 @@
       top: 0;
       left: 4px;
     }
-    .add-btn {
+    .add-btn, .delete-btn {
       margin-top: 10px;
       padding: 6px 12px;
       background-color: #4CAF50;
@@ -79,12 +87,7 @@
     }
     .delete-btn {
       background-color: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 4px;
       margin-left: auto;
-      padding: 2px 8px;
-      cursor: pointer;
     }
     .delete-btn:hover {
       background-color: #c0392b;
@@ -129,19 +132,19 @@
     <div class="weekday" onclick="changeDay('sabado')">Sáb</div>
   </div>
 
-  <div class="section">
+  <div class="section manha-bg">
     <h2>☀️ Manhã</h2>
     <ul id="manha"></ul>
     <button class="add-btn" onclick="addTask('manha')">+ Adicionar tarefa</button>
   </div>
 
-  <div class="section">
+  <div class="section tarde-bg">
     <h2>🌤 Tarde</h2>
     <ul id="tarde"></ul>
     <button class="add-btn" onclick="addTask('tarde')">+ Adicionar tarefa</button>
   </div>
 
-  <div class="section">
+  <div class="section noite-bg">
     <h2>🌙 Noite</h2>
     <ul id="noite"></ul>
     <button class="add-btn" onclick="addTask('noite')">+ Adicionar tarefa</button>
@@ -151,14 +154,73 @@
     Organize sua semana com autonomia e flexibilidade.
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let currentDay = 'segunda';
+    const weekData = JSON.parse(localStorage.getItem('weekData')) || {};
+
+    function saveData() {
+      localStorage.setItem('weekData', JSON.stringify(weekData));
+    }
+
+    function changeDay(day) {
+      currentDay = day;
+      document.querySelectorAll('.weekday').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.weekday[onclick*="${day}"]`).classList.add('active');
+      renderTasks();
+    }
+
+    function renderTasks() {
+      ['manha', 'tarde', 'noite'].forEach(period => {
+        const ul = document.getElementById(period);
+        ul.innerHTML = '';
+        const tasks = weekData[currentDay]?.[period] || [];
+        tasks.forEach((task, index) => {
+          const li = document.createElement('li');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = task.done;
+          checkbox.onchange = () => {
+            weekData[currentDay][period][index].done = checkbox.checked;
+            saveData();
+          };
+
+          const span = document.createElement('span');
+          span.textContent = task.text;
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.textContent = '✖';
+          deleteBtn.onclick = () => {
+            weekData[currentDay][period].splice(index, 1);
+            saveData();
+            renderTasks();
+          };
+
+          li.appendChild(checkbox);
+          li.appendChild(span);
+          li.appendChild(deleteBtn);
+          ul.appendChild(li);
+        });
+      });
+    }
+
+    function addTask(period) {
+      const taskText = prompt('Digite a tarefa:');
+      if (!taskText) return;
+      if (!weekData[currentDay]) weekData[currentDay] = { manha: [], tarde: [], noite: [] };
+      weekData[currentDay][period].push({ text: taskText, done: false });
+      saveData();
+      renderTasks();
+    }
+
+    changeDay('segunda');
+  </script>
+
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-        console.log('Service Worker registrado com sucesso:', registration);
-      }).catch(function(error) {
-        console.log('Falha ao registrar o Service Worker:', error);
-      });
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registrado!', reg))
+        .catch(err => console.error('Erro ao registrar Service Worker:', err));
     }
   </script>
 </body>
