@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checklist Semanal</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4CAF50">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,13 +25,13 @@
       background-position: center;
     }
     .manha-bg {
-      background-image: url('https://i.imgur.com/lJ2lRRUl.jpg');
+      background-image: url('https://images.unsplash.com/photo-1505480449763-1f0a90443c36?auto=format&fit=crop&w=900&q=80');
     }
     .tarde-bg {
-      background-image: url('https://i.imgur.com/RFxXyMQl.jpg');
+      background-image: url('https://images.unsplash.com/photo-1496347646636-ea47f7d6d49c?auto=format&fit=crop&w=900&q=80');
     }
     .noite-bg {
-      background-image: url('https://i.imgur.com/X0A5X8Ll.jpg');
+      background-image: url('https://images.unsplash.com/photo-1523626797181-8c5ae80d40c2?auto=format&fit=crop&w=900&q=80');
     }
     ul {
       list-style: none;
@@ -214,14 +212,6 @@
     }
 
     changeDay('segunda');
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registrado!', reg))
-        .catch(err => console.error('Erro ao registrar Service Worker:', err));
-    }
   </script>
 </body>
 </html>
