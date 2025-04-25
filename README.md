@@ -24,17 +24,6 @@
       background-size: cover;
       background-position: center;
     }
-.manha-bg {
-  background-image: url('https://pixnio.com/free-images/2019/01/16/2019-01-16-12-59-57.jpg');
-}
-
-.tarde-bg {
-  background-image: url('https://pixnio.com/free-images/2018/03/29/2018-03-29-16-17-13.jpg');
-}
-
-.noite-bg {
-  background-image: url('https://images.unsplash.com/photo-1523626797181-8c5ae80d40c2?auto=format&fit=crop&w=900&q=80');
-}
     }
     ul {
       list-style: none;
